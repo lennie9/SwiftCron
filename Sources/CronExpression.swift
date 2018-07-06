@@ -7,15 +7,6 @@ import Foundation
  | | -------- Day
  | ---------- Hour
  ------------ Minute
-
- * * * * * *
- | | | | | |
- | | | | | ---- Year
- | | | | ------ Weekday
- | | | -------- Month
- | | ---------- Day
- | ------------ Hour
- -------------- Minute
  */
 public class CronExpression {
 
@@ -28,8 +19,8 @@ public class CronExpression {
 		self.init(cronRepresentation: cronRepresentation)
 	}
 
-	public convenience init?(minute: CronFieldTranslatable = CronRepresentation.DefaultValue, hour: CronFieldTranslatable = CronRepresentation.DefaultValue, day: CronFieldTranslatable = CronRepresentation.DefaultValue, month: CronFieldTranslatable = CronRepresentation.DefaultValue, weekday: CronFieldTranslatable = CronRepresentation.DefaultValue, year: CronFieldTranslatable = CronRepresentation.DefaultValue) {
-		let cronRepresentation = CronRepresentation(minute: minute.cronFieldRepresentation, hour: hour.cronFieldRepresentation, day: day.cronFieldRepresentation, month: month.cronFieldRepresentation, weekday: weekday.cronFieldRepresentation, year: year.cronFieldRepresentation)
+	public convenience init?(minute: CronFieldTranslatable = CronRepresentation.DefaultValue, hour: CronFieldTranslatable = CronRepresentation.DefaultValue, day: CronFieldTranslatable = CronRepresentation.DefaultValue, month: CronFieldTranslatable = CronRepresentation.DefaultValue, weekday: CronFieldTranslatable = CronRepresentation.DefaultValue) {
+		let cronRepresentation = CronRepresentation(minute: minute.cronFieldRepresentation, hour: hour.cronFieldRepresentation, day: day.cronFieldRepresentation, month: month.cronFieldRepresentation, weekday: weekday.cronFieldRepresentation)
 		self.init(cronRepresentation: cronRepresentation)
 	}
 
@@ -71,10 +62,6 @@ public class CronExpression {
 	}
 
 	func getNextRunDate(_ date: Date, skip: Int) -> Date? {
-		guard matchIsTheoreticallyPossible(date) else {
-			return nil
-		}
-
 		var timesToSkip = skip
 		let calendar = Calendar.current
 		var components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .weekday], from: date)
@@ -83,7 +70,7 @@ public class CronExpression {
 		var nextRun = calendar.date(from: components)!
 
 		// MARK: Issue 3: Instantiate enum instances with the right value
-		let allFieldsInExpression: Array<CronField> = [.minute, .hour, .day, .month, .weekday, .year]
+		let allFieldsInExpression: Array<CronField> = [.minute, .hour, .day, .month, .weekday]
 
 		// Set a hard limit to bail on an impossible date
 		iteration: for _: Int in 0 ..< 1000 {
@@ -121,32 +108,5 @@ public class CronExpression {
 			return satisfied ? nextRun : nil
 		}
 		return nil
-	}
-
-	private func matchIsTheoreticallyPossible(_ date: Date) -> Bool {
-		// TODO: Handle lists and steps
-		guard let year = Int(cronRepresentation.year) else {
-			return true
-		}
-
-		var components = DateComponents()
-		components.year = year
-		if let month = Int(cronRepresentation.month) {
-			components.month = month
-
-            if month < 1 {
-                return false
-            }
-		}
-		let day = Int(cronRepresentation.day) ?? Calendar.current.date(from: components)!.getLastDayOfMonth()
-		//{
-			components.day = day
-
-            if day < 1 {
-                return false
-            }
-		//}
-		let dateFromComponents = Calendar.current.date(from: components)!
-        return date.compare(dateFromComponents) == .orderedAscending || date.compare(dateFromComponents) == .orderedSame
 	}
 }

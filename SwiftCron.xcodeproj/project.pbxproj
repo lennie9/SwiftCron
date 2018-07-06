@@ -24,7 +24,6 @@
 		959BFF7D1E739CFA00A788E2 /* NSDateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959BFF6C1E739CFA00A788E2 /* NSDateFormatter+Extensions.swift */; };
 		959BFF7E1E739CFA00A788E2 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959BFF6D1E739CFA00A788E2 /* String+Extensions.swift */; };
 		959BFF7F1E739CFA00A788E2 /* StringValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959BFF6E1E739CFA00A788E2 /* StringValidator.swift */; };
-		959BFF801E739CFA00A788E2 /* YearField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959BFF6F1E739CFA00A788E2 /* YearField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,7 +46,6 @@
 		959BFF6C1E739CFA00A788E2 /* NSDateFormatter+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSDateFormatter+Extensions.swift"; path = "Sources/NSDateFormatter+Extensions.swift"; sourceTree = SOURCE_ROOT; };
 		959BFF6D1E739CFA00A788E2 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+Extensions.swift"; path = "Sources/String+Extensions.swift"; sourceTree = SOURCE_ROOT; };
 		959BFF6E1E739CFA00A788E2 /* StringValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringValidator.swift; path = Sources/StringValidator.swift; sourceTree = SOURCE_ROOT; };
-		959BFF6F1E739CFA00A788E2 /* YearField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = YearField.swift; path = Sources/YearField.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +104,6 @@
 				959BFF6C1E739CFA00A788E2 /* NSDateFormatter+Extensions.swift */,
 				959BFF6D1E739CFA00A788E2 /* String+Extensions.swift */,
 				959BFF6E1E739CFA00A788E2 /* StringValidator.swift */,
-				959BFF6F1E739CFA00A788E2 /* YearField.swift */,
 			);
 			name = Sources;
 			path = ../../Sources;
@@ -195,7 +192,6 @@
 				959BFF7D1E739CFA00A788E2 /* NSDateFormatter+Extensions.swift in Sources */,
 				959BFF751E739CFA00A788E2 /* DayOfWeekField.swift in Sources */,
 				959BFF7B1E739CFA00A788E2 /* MonthField.swift in Sources */,
-				959BFF801E739CFA00A788E2 /* YearField.swift in Sources */,
 				959BFF741E739CFA00A788E2 /* DayOfMonthField.swift in Sources */,
 				959BFF731E739CFA00A788E2 /* CronRepresentation.swift in Sources */,
 				959BFF721E739CFA00A788E2 /* CronFieldTranslatable.swift in Sources */,

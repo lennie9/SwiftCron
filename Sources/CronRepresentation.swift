@@ -9,8 +9,8 @@
 import Foundation
 
 enum CronField: Int {
-	case minute, hour, day, month, weekday, year
-	private static let fieldCheckers: Array<FieldCheckerInterface> = [MinutesField(), HoursField(), DayOfMonthField(), MonthField(), DayOfWeekField(), YearField()]
+	case minute, hour, day, month, weekday
+	private static let fieldCheckers: Array<FieldCheckerInterface> = [MinutesField(), HoursField(), DayOfMonthField(), MonthField(), DayOfWeekField()]
 
 	func getFieldChecker() -> FieldCheckerInterface {
 		return CronField.fieldCheckers[rawValue]
@@ -18,13 +18,12 @@ enum CronField: Int {
 }
 
 public struct CronRepresentation {
-	static let NumberOfComponentsInValidString = 6
+	static let NumberOfComponentsInValidString = 5
 	public static let DefaultValue = "*"
 	static let StepIdentifier = "/"
 	static let ListIdentifier = ","
     static let RangeIdentifier = "-"
 
-	var year: String
 	var weekday: String
 	var month: String
 	var day: String
@@ -34,7 +33,7 @@ public struct CronRepresentation {
 	var biggestField: CronField? {
 		let defaultValue = CronRepresentation.DefaultValue
 
-		if year != defaultValue { return CronField.year }
+        if weekday != defaultValue { return CronField.weekday }
 		if month != defaultValue { return CronField.month }
 		if day != defaultValue { return CronField.day }
 		if hour != defaultValue { return CronField.hour }
@@ -47,16 +46,15 @@ public struct CronRepresentation {
 		return cronParts[index]
 	}
 
-	init(minute: String = CronRepresentation.DefaultValue, hour: String = CronRepresentation.DefaultValue, day: String = CronRepresentation.DefaultValue, month: String = CronRepresentation.DefaultValue, weekday: String = CronRepresentation.DefaultValue, year: String = CronRepresentation.DefaultValue) {
+	init(minute: String = CronRepresentation.DefaultValue, hour: String = CronRepresentation.DefaultValue, day: String = CronRepresentation.DefaultValue, month: String = CronRepresentation.DefaultValue, weekday: String = CronRepresentation.DefaultValue) {
 		self.minute = minute
 		self.hour = hour
 		self.day = day
 		self.month = month
 		self.weekday = weekday
-		self.year = year
 
-		cronParts = [minute, hour, day, month, weekday, year]
-		cronString = "\(minute) \(hour) \(day) \(month) \(weekday) \(year)"
+		cronParts = [minute, hour, day, month, weekday]
+		cronString = "\(minute) \(hour) \(day) \(month) \(weekday)"
 	}
 
 	init?(cronString: String) {
@@ -65,7 +63,7 @@ public struct CronRepresentation {
 			return nil
 		}
 
-		self.init(minute: parts[0], hour: parts[1], day: parts[2], month: parts[3], weekday: parts[4], year: parts[5])
+		self.init(minute: parts[0], hour: parts[1], day: parts[2], month: parts[3], weekday: parts[4])
 	}
 
 	// MARK: Issue 3: pass in enum. Get value out of enum and check if it matches the default value?

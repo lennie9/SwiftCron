@@ -12,12 +12,12 @@ enum CronDescriptionLength { case short, long }
 
 class CronDescriptionBuilder {
 	static let EveryWeekday: String = {
-			let cronExp = CronExpression(cronString: "0 0 * * 1,2,3,4,5 *")!
+			let cronExp = CronExpression(cronString: "0 0 * * 1,2,3,4,5")!
 			return DateFormatter.convertStringToDaysOfWeek(cronExp.cronRepresentation.weekday)
 	}()
 
 	static let EveryDay: String = {
-			let cronExp = CronExpression(cronString: "0 0 * * 1,2,3,4,5,6,7 *")!
+			let cronExp = CronExpression(cronString: "0 0 * * 1,2,3,4,5,6,7")!
 			return DateFormatter.convertStringToDaysOfWeek(cronExp.cronRepresentation.weekday)
 	}()
 
@@ -34,9 +34,7 @@ class CronDescriptionBuilder {
 				return descriptionWithMonthBiggest(cronRepresentation, length: length)
 			case .weekday:
 				break
-			case .year:
-				return descriptionWithYearBiggest(cronRepresentation, length: length)
-			}
+            }
 		}
 		return descriptionWithNoneBiggest(cronRepresentation, length: length)
 	}
@@ -138,30 +136,6 @@ class CronDescriptionBuilder {
 				return "Every \(weekday) the \(day) of \(month)"
 			case .long:
 				return "Every \(weekday) the \(day) of \(month) at \(time)"
-			}
-		}
-	}
-
-	private static func descriptionWithYearBiggest(_ cronRepresentation: CronRepresentation, length: CronDescriptionLength) -> String {
-		let time = DateFormatter.timeStringWithHour(cronRepresentation.hour, minute: cronRepresentation.minute)
-		let day = Int(cronRepresentation.day)!.ordinal
-		let month = Int(cronRepresentation.month)!.convertToMonth()
-
-		let desc = "\(day) of \(month) \(cronRepresentation.year)"
-		if CronRepresentation.isDefault(cronRepresentation.weekday) {
-			switch length {
-			case .short:
-				return desc
-			case .long:
-				return "\(desc) at \(time)"
-			}
-		} else {
-			let weekday = DateFormatter.convertStringToDaysOfWeek(cronRepresentation.weekday)
-			switch length {
-			case .short:
-				return "\(weekday) \(desc)"
-			case .long:
-				return "\(weekday) \(desc) at \(time)"
 			}
 		}
 	}
