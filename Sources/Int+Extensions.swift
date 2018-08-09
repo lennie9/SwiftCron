@@ -36,7 +36,8 @@ extension Int {
 	func convertToMonth() -> String {
 		assert(self < 13 && self > 0, "Not a valid month")
 
-		let calendar = Calendar.current
+		var calendar = Calendar.current
+        calendar.timeZone = TimeZone(identifier: "UTC")!
 		var components = DateComponents()
 		components.month = self
 		let date = calendar.date(from: components)!

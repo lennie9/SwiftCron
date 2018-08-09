@@ -20,8 +20,8 @@ extension Date {
 	}
 
 	func nextDate(matchingUnit unit: NSCalendar.Unit, value: String) -> Date? {
-		let calendar = Calendar.current
-
+		var calendar = Calendar.current
+        calendar.timeZone = TimeZone(identifier: "UTC")!
 		var valueToMatch: Int!
 
 		if value.contains(CronRepresentation.ListIdentifier) {
@@ -78,7 +78,8 @@ extension Date {
 	}
 
     func getLastDayOfMonth() -> Int {
-        let calendar = Calendar.current
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone(identifier: "UTC")!
         let components = calendar.dateComponents([.month], from: self)
 
         switch components.month! {

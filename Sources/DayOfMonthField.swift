@@ -2,7 +2,8 @@ import Foundation
 
 class DayOfMonthField: Field, FieldCheckerInterface {
 	func isSatisfiedBy(_ date: Date, value: String) -> Bool {
-		let calendar = Calendar.current
+		var calendar = Calendar.current
+        calendar.timeZone = TimeZone(identifier: "UTC")!
 		let components = calendar.dateComponents([.day, .month, .year], from: date)
 
 		if value == "L" {
@@ -18,7 +19,8 @@ class DayOfMonthField: Field, FieldCheckerInterface {
 			return nextDate
 		}
 
-		let calendar = Calendar.current
+		var calendar = Calendar.current
+        calendar.timeZone = TimeZone(identifier: "UTC")!
 		var midnightComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .weekday], from: date)
 		midnightComponents.hour = 0
 		midnightComponents.minute = 0

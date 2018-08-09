@@ -63,7 +63,8 @@ public class CronExpression {
 
 	func getNextRunDate(_ date: Date, skip: Int) -> Date? {
 		var timesToSkip = skip
-		let calendar = Calendar.current
+		var calendar = Calendar.current
+        calendar.timeZone = TimeZone(identifier: "UTC")!
 		var components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .weekday], from: date)
 		components.second = 0
 

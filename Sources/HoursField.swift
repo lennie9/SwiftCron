@@ -3,7 +3,8 @@ import Foundation
 class HoursField: Field, FieldCheckerInterface {
 
 	func isSatisfiedBy(_ date: Date, value: String) -> Bool {
-		let calendar = Calendar.current
+		var calendar = Calendar.current
+        calendar.timeZone = TimeZone(identifier: "UTC")!
 		let components = calendar.dateComponents([.hour], from: date)
         guard let hour = components.hour else { return false }
 
@@ -15,7 +16,8 @@ class HoursField: Field, FieldCheckerInterface {
 			return nextDate
 		}
 
-		let calendar = Calendar.current
+		var calendar = Calendar.current
+        calendar.timeZone = TimeZone(identifier: "UTC")!
 		var components = DateComponents()
 		components.hour = 1
         return calendar.date(byAdding: components, to: date)!

@@ -3,6 +3,7 @@ import Foundation
 class DayOfWeekField: Field, FieldCheckerInterface {
 	static let currentCalendarWithMondayAsFirstDay: Calendar = {
 		var calendar = Calendar.current
+        calendar.timeZone = TimeZone(identifier: "UTC")!
 		calendar.firstWeekday = 2
 		return calendar
 	}()
@@ -21,7 +22,8 @@ class DayOfWeekField: Field, FieldCheckerInterface {
 	}
 
 	func increment(_ date: Date, toMatchValue: String) -> Date {
-		let calendar = Calendar.current
+		var calendar = Calendar.current
+        calendar.timeZone = TimeZone(identifier: "UTC")!
 
 		// TODO issue 13: handle list items
 		if let toMatchInt = Int(toMatchValue) {
